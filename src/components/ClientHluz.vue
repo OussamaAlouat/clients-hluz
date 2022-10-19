@@ -3,10 +3,10 @@
     <v-list-item three-line>
       <v-list-item-content>
         <v-list-item-title class="text-h5 mb-1">
-          Cecil Grant
+          {{ clientName }}
         </v-list-item-title>
-        <v-list-item-subtitle>Sweet potato street, 2</v-list-item-subtitle>
-        <v-list-text>customer-basic</v-list-text>
+        <v-list-item-subtitle>{{ address }}</v-list-item-subtitle>
+        <v-list-item-subtitle>{{ buildingType }}</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar tile size="80" color="grey">Build</v-list-item-avatar>
@@ -24,7 +24,7 @@ export default {
       required: true,
     },
 
-    adress: {
+    address: {
       type: String,
       required: true,
     },
