@@ -8,6 +8,10 @@
         :address="client.address"
         :role="client.role"
         :buildingType="client.building_type"
+        :neighbors="supplyPoint.neighbors"
+        :tarif="supplyPoint.tariff"
+        :power="supplyPoint.power"
+        :amount="supplyPoint.invoiced_amount"
       >
     </client-hluz>
     </div>
@@ -26,6 +30,7 @@ export default {
   },
   data: () => ({
     clientsWithCuts: [],
+    supplyPoint: {},
   }),
   mounted() {
     axios.get('http://localhost:3000/clients').then((result) => {
@@ -39,6 +44,12 @@ export default {
       axios.get(`http://localhost:3000/clients?cups=${event}`).then((result) => {
         this.clientsWithCuts = JSON.parse(JSON.stringify(result.data));
         console.log('Result: ', result.data);
+      });
+
+      axios.get(`http://localhost:3000/supplyPoints?cups=${event}`).then((result) => {
+        this.supplyPoint = JSON.parse(JSON.stringify(result.data[0]));
+
+        console.log('suplyPoint: ', result.data[0]);
       });
     },
   },

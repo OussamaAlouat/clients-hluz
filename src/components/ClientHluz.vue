@@ -6,10 +6,12 @@
           {{ clientName }}
         </v-list-item-title>
         <v-list-item-subtitle>{{ address }}</v-list-item-subtitle>
-        <v-list-item-subtitle>{{ buildingType }}</v-list-item-subtitle>
+        <v-list-item-subtitle>{{ role }}</v-list-item-subtitle>
       </v-list-item-content>
 
-      <v-list-item-avatar tile size="80" color="grey">Build</v-list-item-avatar>
+      <v-list-item-avatar tile size="80" color="grey">
+        {{ buildingType }}
+      </v-list-item-avatar>
     </v-list-item>
   </v-card>
 </template>
@@ -37,10 +39,17 @@ export default {
       type: String,
       required: true,
     },
+    amount: {
+      type: String,
+      required: true,
+    },
+    neighbors: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
 
 <style>
-
 </style>
