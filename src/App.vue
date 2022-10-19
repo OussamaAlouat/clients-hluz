@@ -19,19 +19,19 @@
     </v-app-bar>
 
     <v-main>
-      <ClientHluz/>
+      <clients-container/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import ClientHluz from './components/ClientHluz.vue';
+import ClientsContainer from './containers/clientsHluz/ClientsContainer.vue';
 
 export default {
   name: 'App',
 
   components: {
-    ClientHluz,
+    ClientsContainer,
   },
 
   data: () => ({
