@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    WELLCOME TO THE HLUZ APP
+    <client-hluz></client-hluz>
   </div>
 </template>
 
 <script>
+import ClientHluz from '@/components/ClientHluz.vue';
 
 export default {
   name: 'App',
   components: {
+    ClientHluz,
   },
 };
 </script>
