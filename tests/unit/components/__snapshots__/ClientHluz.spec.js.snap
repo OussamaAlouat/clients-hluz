@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClientHluz.vue Component render 1`] = `
+<v-card max-width="344" outlined="" class="mx-auto" buildtype="house">
+  <v-list-item three-line="">
+    <v-list-item-content>
+      <v-list-item-title class="text-h5 mb-1">
+        client
+      </v-list-item-title>
+      <v-list-item-subtitle>address1 </v-list-item-subtitle>
+      <v-list-item-subtitle></v-list-item-subtitle>
+    </v-list-item-content>
+    <v-list-item-avatar tile="" size="80" color="grey">Build</v-list-item-avatar>
+  </v-list-item>
+</v-card>
+`;
