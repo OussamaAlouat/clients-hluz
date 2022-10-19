@@ -27,3 +27,10 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### Details:
+
+## Components:
+ - Clients: Here we have the client information.
+ - Search: Component to search the CUPS
