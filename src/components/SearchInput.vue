@@ -12,7 +12,11 @@
       >
         <template v-slot:append>
           <v-hover v-slot="{ hover }">
-            <v-icon large :color="hover ? 'rgba(229, 0, 126, 255)' : ''" @click="searchCUPS()">
+            <v-icon
+              large
+              :color="hover ? 'rgba(229, 0, 126, 255)' : ''"
+              :disabled="!cupsValue" @click="searchCUPS()"
+            >
               mdi-magnify
             </v-icon>
           </v-hover>
@@ -32,8 +36,10 @@ export default {
 
   methods: {
     searchCUPS() {
-      this.$emit('cupsToSearch', this.cupsValue);
-      console.log('cups: ', this.cupsValue);
+      if (this.cupsValue) {
+        this.$emit('cupsToSearch', this.cupsValue);
+        console.log('cups: ', this.cupsValue);
+      }
     },
   },
 };
