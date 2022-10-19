@@ -9,6 +9,10 @@ describe('SearchInput.vue', () => {
 
   it('On click on searchCUPS function will emit "cupsToSearch" event', () => {
     const wrapper = shallowMount(SearchInput, {});
+    wrapper.setData({
+      cupsValue: 'cupsValue',
+    });
+
     wrapper.vm.searchCUPS();
     expect(wrapper.emitted()).toHaveProperty('cupsToSearch');
   })
