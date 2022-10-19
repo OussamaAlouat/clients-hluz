@@ -38,7 +38,6 @@ export default {
     searchCUPS() {
       if (this.cupsValue) {
         this.$emit('cupsToSearch', this.cupsValue);
-        console.log('cups: ', this.cupsValue);
       }
     },
   },
