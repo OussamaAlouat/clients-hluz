@@ -15,5 +15,12 @@ describe('SearchInput.vue', () => {
 
     wrapper.vm.searchCUPS();
     expect(wrapper.emitted()).toHaveProperty('cupsToSearch');
-  })
+  });
+
+  it('On click on searchCUPS function not will emit "cupsToSearch" because cupsValue is empty', () => {
+    const wrapper = shallowMount(SearchInput, {});
+
+    wrapper.vm.searchCUPS();
+    expect(wrapper.emitted()).not.toHaveProperty('cupsToSearch');
+  });
 });
