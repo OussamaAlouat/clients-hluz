@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchInput.vue Component render 1`] = `
+<div class="input-container">
+  <div style="width: 80%;">
+    <v-text-field-stub errorcount="1" errormessages="" messages="" rules="" successmessages="" value="" backgroundcolor="" id="cups" loaderheight="2" clearicon="$clear" outlined="true" placeholder="Set cups" type="text" class="input-container__input-hluz"></v-text-field-stub>
+  </div>
+</div>
+`;

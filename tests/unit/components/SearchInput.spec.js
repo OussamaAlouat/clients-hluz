@@ -4,7 +4,7 @@ import SearchInput from '@/components/SearchInput.vue';
 describe('SearchInput.vue', () => {
   it('Component render', () => {
     const wrapper = shallowMount(SearchInput, {});
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('On click on searchCUPS function will emit "cupsToSearch" event', () => {
