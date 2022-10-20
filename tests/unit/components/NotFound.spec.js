@@ -1,12 +1,20 @@
 import { shallowMount } from '@vue/test-utils';
 import NotFound from '@/components/NotFound.vue';
-import Vuetify from 'vuetify';
 
 describe('NotFound.vue', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallowMount(NotFound);
+  });
+
   it('Component render', () => {
-    const wrapper = shallowMount(NotFound, {
-      Vuetify,
-    });
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('Text of component must to be equal as espected', () => {
+    const expectedText = 'There are no clients for that CUT';
+    const recivedText = wrapper.text();
+    expect(recivedText).toEqual(expectedText);
   });
 });
