@@ -16,9 +16,8 @@
       </client-hluz>
     </div>
 
-    <!-- Sen to a component-->
     <div v-if="showNotFoundClients" class="h-100 not-found-container">
-      <not-found></not-found>
+      <not-found />
     </div>
   </div>
 </template>
