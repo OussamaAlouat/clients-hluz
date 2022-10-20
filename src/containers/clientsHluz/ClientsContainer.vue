@@ -24,7 +24,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/services/api';
+
 import ClientHluz from '@/components/ClientHluz.vue';
 import SearchInput from '@/components/SearchInput.vue';
 import NotFound from '@/components/NotFound.vue';
@@ -42,20 +43,18 @@ export default {
     searched: false,
   }),
   mounted() {
-    axios.get('http://localhost:3000/clients').then((result) => {
+    api.getAllClients().then((result) => {
       console.log(result.data);
     });
   },
   methods: {
     setCupsToSearch(event) {
-      console.log(event);
-
-      axios.get(`http://localhost:3000/clients?cups=${event}`).then((result) => {
+      api.getClientsWithCups(event).then((result) => {
         this.clientsWithCuts = JSON.parse(JSON.stringify(result.data));
         console.log('Result: ', result.data);
       });
 
-      axios.get(`http://localhost:3000/supplyPoints?cups=${event}`).then((result) => {
+      api.getSupplyPoints(event).then((result) => {
         if (result.data && result.data.length > 0) {
           this.supplyPoint = JSON.parse(JSON.stringify(result.data[0]));
         }
