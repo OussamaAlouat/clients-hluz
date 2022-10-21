@@ -1,15 +1,22 @@
 <template>
-  <v-card class="mx-auto bg-main" max-width="340">
-    <v-card-text>
-      <p class="text-h4 text--primary">
-        {{ clientName }}
-      </p>
-
-      <p class="text--primary">{{ address }}</p>
-      <p class="text--primary">{{ role }}</p>
-      <p>Type: {{ buildingType }}</p>
-    </v-card-text>
-  </v-card>
+  <div class="client-box">
+    <v-row>
+      <v-col>
+        Name:  {{ clientName }}
+      </v-col>
+      <v-col>
+        Address: {{ address }}
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        Role: {{ role }}
+      </v-col>
+      <v-col>
+        Building type: {{ buildingType }}
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -34,15 +41,6 @@ export default {
       type: String,
       required: true,
     },
-    amount: {
-      type: String,
-      required: true,
-    },
-    neighbors: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
   },
 
   computed: {},
@@ -50,4 +48,14 @@ export default {
 </script>
 
 <style lang="scss">
+.client-box {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 10px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px
+    rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  width: 80%;
+}
 </style>
