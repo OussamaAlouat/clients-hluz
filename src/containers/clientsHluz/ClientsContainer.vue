@@ -1,27 +1,30 @@
 <template>
   <div class="h-100">
     <search-input @cupsToSearch="setCupsToSearch"></search-input>
+    <loading-line-bar v-if="loading" :isLoaded="searched"></loading-line-bar>
     <div
-      class="d-flex justify-center"
-      v-if="clientsRooftopRevolution && clientsRooftopRevolution.full_name"
+      class="container-hluz"
+      v-if="clientsRooftopRevolution && clientsRooftopRevolution.full_name && !loading"
     >
-      <client-hluz
-        :clientName="clientsRooftopRevolution.full_name"
-        :address="clientsRooftopRevolution.address"
-        :role="clientsRooftopRevolution.role"
-        :buildingType="clientsRooftopRevolution.building_type"
-      >
-      </client-hluz>
-    </div>
+      <div class="d-flex justify-center" >
+        <client-hluz
+          :clientName="clientsRooftopRevolution.full_name"
+          :address="clientsRooftopRevolution.address"
+          :role="clientsRooftopRevolution.role"
+          :buildingType="clientsRooftopRevolution.building_type"
+        >
+        </client-hluz>
+      </div>
 
-    <div class="offer-container">
-      <offer-hluz
-        v-for="(amount, index) in amounts"
-        :key="index"
-        :amount="amount.amount"
-        :type="amount.type"
-        :icon="amount.icon"
-      ></offer-hluz>
+      <div class="offer-container">
+        <offer-hluz
+          v-for="(amount, index) in amounts"
+          :key="index"
+          :amount="amount.amount"
+          :type="amount.type"
+          :icon="amount.icon"
+          :typeDiscount="amount.typeDiscount"></offer-hluz>
+      </div>
     </div>
 
     <div v-if="showNotFoundClients" class="h-100 not-found-container">
@@ -37,6 +40,7 @@ import ClientHluz from '@/components/ClientHluz.vue';
 import SearchInput from '@/components/SearchInput.vue';
 import NotFound from '@/components/NotFound.vue';
 import OfferHluz from '@/components/OfferHluz.vue';
+import LoadingLineBar from '@/components/LoadingLineBar.vue';
 
 export default {
   components: {
@@ -44,12 +48,14 @@ export default {
     SearchInput,
     NotFound,
     OfferHluz,
+    LoadingLineBar,
   },
 
   data: () => ({
     clientsWithCuts: {},
     supplyPoint: {},
     searched: false,
+    loading: false,
     neighborsInfo: [],
     amounts: [],
   }),
@@ -67,6 +73,7 @@ export default {
     },
 
     async setCupsToSearch(event) {
+      this.loading = true;
       this.resetData();
       const clients = api.getClientsWithCups(event);
       const supplyPointPromise = api.getSupplyPoints(event);
@@ -82,6 +89,7 @@ export default {
         }
 
         this.searched = true;
+        setTimeout(() => { this.loading = false; }, 2000);
       });
     },
 
@@ -121,6 +129,7 @@ export default {
         this.clientsRooftopRevolution
         && !this.clientsRooftopRevolution.full_name
         && this.searched
+        && !this.loading
       );
     },
 
@@ -164,12 +173,13 @@ export default {
         && this.supplyPoint.neighbors
         && this.neighborsInfo.length === this.supplyPoint.neighbors.length
       ) {
-        const amount = this.supplyPoint.invoiced_amount;
+        const amount = parseFloat(this.supplyPoint.invoiced_amount);
         if (this.clientsRooftopRevolution && this.clientsRooftopRevolution.full_name) {
           this.amounts.push({
             type: 'Standard offer',
             amount,
             icon: 'mdi-lightbulb-on-10',
+            typeDiscount: 'No discount',
           });
         }
 
@@ -179,6 +189,7 @@ export default {
             type: 'Basic discount',
             amount: amountBasic,
             icon: 'mdi-lightbulb-on-40',
+            typeDiscount: '5%',
           });
         }
 
@@ -188,6 +199,7 @@ export default {
             type: 'Special discount',
             amount: amountSpecial,
             icon: 'mdi-lightbulb-on-90',
+            typeDiscount: '12%',
           });
         }
       }
@@ -212,5 +224,13 @@ export default {
   display: flex;
   justify-content: space-evenly;
   margin-top: 40px;
+}
+.container-hluz{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-content: center;
 }
 </style>
