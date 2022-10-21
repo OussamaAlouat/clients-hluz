@@ -1,14 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ClientHluz.vue Component render 1`] = `
-<v-card-stub loaderheight="4" tag="div" maxwidth="340" class="mx-auto bg-main" buildtype="house">
-  <v-card-text-stub tag="div">
-    <p class="text-h4 text--primary">
-      client
-    </p>
-    <p class="text--primary">address1 </p>
-    <p class="text--primary">role1</p>
-    <p>Type: </p>
-  </v-card-text-stub>
-</v-card-stub>
+<div class="client-box" buildtype="house">
+  <v-row-stub tag="div">
+    <v-col-stub tag="div">
+      Name: client
+    </v-col-stub>
+    <v-col-stub tag="div">
+      Address: address1
+    </v-col-stub>
+  </v-row-stub>
+  <v-row-stub tag="div">
+    <v-col-stub tag="div">
+      Role: role1
+    </v-col-stub>
+    <v-col-stub tag="div">
+      Building type:
+    </v-col-stub>
+  </v-row-stub>
+</div>
 `;
