@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-alert type="info">
+    <v-alert type="info" icon="mdi-home-alert">
       There are no clients for that CUT
     </v-alert>
   </div>

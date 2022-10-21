@@ -48,8 +48,8 @@ export default {
 .input-container {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
   &__input-hluz {
     border-radius: 10px;

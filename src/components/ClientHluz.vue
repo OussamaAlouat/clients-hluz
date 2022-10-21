@@ -2,10 +2,10 @@
   <div class="client-box">
     <v-row>
       <v-col>
-        Name:  {{ clientName }}
+        Nombre:  {{ clientName }}
       </v-col>
       <v-col>
-        Address: {{ address }}
+        Dirección: {{ address }}
       </v-col>
     </v-row>
     <v-row>
@@ -13,7 +13,7 @@
         Role: {{ role }}
       </v-col>
       <v-col>
-        Building type: {{ buildingType }}
+        Tipo de vivienda: {{ buildingType }}
       </v-col>
     </v-row>
   </div>
@@ -49,6 +49,8 @@ export default {
 
 <style lang="scss">
 .client-box {
+  background: $main-yellow-hluz;
+  border-radius: $small-border-radius;
   padding: 10px;
   width: 40%;
   display: flex;

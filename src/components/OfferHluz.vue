@@ -9,7 +9,11 @@
       </P>
 
       <p class="text-h5 text--primary">
-        {{ amount }}
+        Precio: {{ amount }}
+      </p>
+
+      <p class="text-h5 text--primary">
+        Descuento: {{ typeDiscount }}
       </p>
     </v-card-text>
   </v-card>
@@ -20,7 +24,7 @@ export default {
   name: 'OfferComponent',
   props: {
     amount: {
-      type: String,
+      type: Number,
       required: true,
     },
     type: {
@@ -28,6 +32,10 @@ export default {
       required: true,
     },
     icon: {
+      type: String,
+      required: true,
+    },
+    typeDiscount: {
       type: String,
       required: true,
     },
