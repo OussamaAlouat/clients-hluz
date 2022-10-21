@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingLineBar.vue Component render 1`] = `<v-progress-linear-stub color="deep-orange" value="0" active="true" buffervalue="100" height="10" query="true" striped="true" indeterminate="true"></v-progress-linear-stub>`;
