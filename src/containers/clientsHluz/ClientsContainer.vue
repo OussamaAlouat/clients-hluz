@@ -2,21 +2,26 @@
   <div class="h-100">
     <search-input @cupsToSearch="setCupsToSearch"></search-input>
     <div
-      v-for="(client, i) in clientsRooftopRevolution"
-      :key="i"
-      class="d-flex justify-center mb-10">
+      class="d-flex justify-center"
+      v-if="clientsRooftopRevolution && clientsRooftopRevolution.full_name"
+    >
       <client-hluz
-        :key="i"
-        :clientName="client.full_name"
-        :address="client.address"
-        :role="client.role"
-        :buildingType="client.building_type"
+        :clientName="clientsRooftopRevolution.full_name"
+        :address="clientsRooftopRevolution.address"
+        :role="clientsRooftopRevolution.role"
+        :buildingType="clientsRooftopRevolution.building_type"
       >
       </client-hluz>
     </div>
 
-    <div v-for="(amount, index) in amounts" :key="index">
-      <offer-hluz :amount="amount.amount" :type="amount.type"></offer-hluz>
+    <div class="offer-container">
+      <offer-hluz
+        v-for="(amount, index) in amounts"
+        :key="index"
+        :amount="amount.amount"
+        :type="amount.type"
+        :icon="amount.icon"
+      ></offer-hluz>
     </div>
 
     <div v-if="showNotFoundClients" class="h-100 not-found-container">
@@ -42,7 +47,7 @@ export default {
   },
 
   data: () => ({
-    clientsWithCuts: [],
+    clientsWithCuts: {},
     supplyPoint: {},
     searched: false,
     neighborsInfo: [],
@@ -54,27 +59,28 @@ export default {
     });
   },
   methods: {
-    setCupsToSearch(event) {
+    resetData() {
+      this.supplyPoint = {};
+      this.neighborsInfo = [];
+      this.amounts = [];
+      this.clientsWithCuts = {};
+    },
+
+    async setCupsToSearch(event) {
+      this.resetData();
       const clients = api.getClientsWithCups(event);
       const supplyPointPromise = api.getSupplyPoints(event);
       Promise.all([clients, supplyPointPromise]).then((values) => {
         // eslint-disable-next-line prefer-destructuring
-        this.clientsWithCuts = values[0].data;
-        console.log('Values on promise: ', values);
-
+        this.clientsWithCuts = values[0].data[0];
         const resultOfSuplyPromise = values[1];
+
         if (resultOfSuplyPromise.data && resultOfSuplyPromise.data.length > 0) {
         // eslint-disable-next-line prefer-destructuring
           this.supplyPoint = resultOfSuplyPromise.data[0];
-          this.amounts.push({
-            type: 'Standard offer',
-            amount: this.supplyPoint.invoiced_amount,
-          });
-
           this.getAllNeighborsInformation();
         }
 
-        // eslint-disable-next-line prefer-destructuring
         this.searched = true;
       });
     },
@@ -83,15 +89,13 @@ export default {
       if (this.supplyPoint && this.supplyPoint.neighbors) {
         this.supplyPoint.neighbors.forEach(async (elem) => {
           const value = await this.getNeighborsInformation(elem);
-          this.neighborsInfo.push(value);
+          this.neighborsInfo.push(...value);
         });
       }
     },
 
     async getNeighborsInformation(neighborCups) {
-      console.log('llama aqui: ', neighborCups);
       const neighbor = await api.getSupplyPoints(neighborCups);
-      console.log('neighbor: ', neighbor.data);
       return neighbor.data;
     },
   },
@@ -105,15 +109,90 @@ export default {
     },
 
     clientsRooftopRevolution() {
-      const clients = this.clientsWithCuts.filter((client) => client.building_type === 'house');
-      return this.numberOfNeighbors >= 1 ? clients : [];
+      if (this.clientsWithCuts && this.clientsWithCuts.building_type === 'house' && this.numberOfNeighbors >= 1) {
+        return this.clientsWithCuts;
+      }
+
+      return {};
     },
 
     showNotFoundClients() {
-      return this.clientsRooftopRevolution.length === 0 && this.searched;
+      return (
+        this.clientsRooftopRevolution
+        && !this.clientsRooftopRevolution.full_name
+        && this.searched
+      );
+    },
+
+    isClientHaveBasicDiscount() {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.neighborsInfo.length; i++) {
+        const { p1, p2 } = this.neighborsInfo[i].power;
+
+        if (p1 >= this.supplyPoint.power.p1 || p2 >= this.supplyPoint.power.p2) {
+          return false;
+        }
+      }
+
+      if (this.neighborsInfo.length === 0) {
+        return false;
+      }
+
+      return true;
+    },
+
+    isClientHaveSpecialDiscount() {
+      let sum = 0;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.neighborsInfo.length; i++) {
+        console.log('this.neighborsInfo.length: ', this.neighborsInfo[i]);
+        sum += parseFloat(this.neighborsInfo[i].invoiced_amount);
+      }
+
+      if (sum <= 100) {
+        return false;
+      }
+
+      return true;
     },
   },
 
+  watch: {
+    neighborsInfo() {
+      if (
+        this.supplyPoint
+        && this.supplyPoint.neighbors
+        && this.neighborsInfo.length === this.supplyPoint.neighbors.length
+      ) {
+        const amount = this.supplyPoint.invoiced_amount;
+        if (this.clientsRooftopRevolution && this.clientsRooftopRevolution.full_name) {
+          this.amounts.push({
+            type: 'Standard offer',
+            amount,
+            icon: 'mdi-lightbulb-on-10',
+          });
+        }
+
+        if (this.isClientHaveBasicDiscount) {
+          const amountBasic = parseFloat(amount) * 0.95;
+          this.amounts.push({
+            type: 'Basic discount',
+            amount: amountBasic,
+            icon: 'mdi-lightbulb-on-40',
+          });
+        }
+
+        if (this.isClientHaveSpecialDiscount) {
+          const amountSpecial = parseFloat(amount) * 0.88;
+          this.amounts.push({
+            type: 'Special discount',
+            amount: amountSpecial,
+            icon: 'mdi-lightbulb-on-90',
+          });
+        }
+      }
+    },
+  },
 };
 </script>
 
@@ -127,5 +206,11 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: center;
+}
+
+.offer-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
 }
 </style>
