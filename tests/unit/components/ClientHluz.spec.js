@@ -6,7 +6,7 @@ describe('ClientHluz.vue', () => {
     clientName: 'client',
     address: 'address1 ',
     role: 'role1',
-    buildType: 'house',
+    buildingType: 'house',
   };
   let wrapper;
 

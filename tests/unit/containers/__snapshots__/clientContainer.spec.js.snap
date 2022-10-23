@@ -3,6 +3,10 @@
 exports[`ClientsContainer.vue Container render 1`] = `
 <div class="h-100">
   <search-input-stub></search-input-stub>
+  <div>
+    <!---->
+  </div>
+  <!---->
   <!---->
 </div>
 `;

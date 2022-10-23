@@ -1,4 +1,4 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 import ClientsContainer from '@/containers/clientsHluz/ClientsContainer.vue';
 import ClientHluz from '@/components/ClientHluz.vue';
 import SearchInput from '@/components/SearchInput.vue';
@@ -41,9 +41,22 @@ describe('ClientsContainer.vue', () => {
         numberOfNeighbors: () => 2,
         clientsRooftopRevolution: () => mocks.curlClient,
       },
+      data() {
+        return {
+          clientsWithCuts: mocks.curlClient,
+          supplyPoint: mocks.selecedSuplyPoint,
+          neighborsInfo: [
+            ...mocks.suplyPoints,
+          ],
+          amounts: [],
+          searched: true,
+          loading: false,
+        };
+      },
     });
 
     await wrapper.vm.$nextTick();
+
     const clientHluz = wrapper.findComponent(ClientHluz);
     expect(clientHluz.exists()).toBe(true);
   });
