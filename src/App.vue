@@ -19,19 +19,19 @@
     </v-app-bar>
 
     <v-main>
-      <clients-container/>
+      <hluz-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import ClientsContainer from './containers/clientsHluz/ClientsContainer.vue';
+import HluzView from '@/views/HluzView.vue';
 
 export default {
   name: 'App',
 
   components: {
-    ClientsContainer,
+    HluzView,
   },
 
   data: () => ({

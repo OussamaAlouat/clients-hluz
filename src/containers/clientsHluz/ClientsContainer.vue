@@ -1,7 +1,9 @@
 <template>
   <div class="h-100">
     <search-input @cupsToSearch="setCupsToSearch"></search-input>
-    <loading-line-bar v-if="loading" :isLoaded="searched"></loading-line-bar>
+    <div>
+      <loading-line-bar v-if="loading" :isLoaded="searched"></loading-line-bar>
+    </div>
     <div
       class="container-hluz"
       v-if="clientsRooftopRevolution && clientsRooftopRevolution.full_name && !loading"
