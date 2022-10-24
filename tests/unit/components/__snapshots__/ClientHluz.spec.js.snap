@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClientHluz.vue Component render 1`] = `
+<div class="client-box">
+  <v-row-stub tag="div">
+    <v-col-stub tag="div">
+      Nombre: client
+    </v-col-stub>
+    <v-col-stub tag="div">
+      Dirección: address1
+    </v-col-stub>
+  </v-row-stub>
+  <v-row-stub tag="div">
+    <v-col-stub tag="div">
+      Role: role1
+    </v-col-stub>
+    <v-col-stub tag="div">
+      Tipo de vivienda: house
+    </v-col-stub>
+  </v-row-stub>
+</div>
+`;
