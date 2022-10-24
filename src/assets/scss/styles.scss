@@ -2,7 +2,9 @@
 GLOBAL VARIABLES
 */
 $main-pink-hluz: rgba(229, 0, 126, 0.2);
-
+$main-yellow-hluz:  rgba(255,244,211,0.5);
+$small-border-radius: 4px;
+$main-background: rgba(249, 248, 243, 255);
 /*
 GLOBAL CLASSES
 */
@@ -12,4 +14,8 @@ GLOBAL CLASSES
 
 .mb-10 {
   margin-bottom: 10px;
+}
+
+html {
+  background-color: $main-background;
 }
