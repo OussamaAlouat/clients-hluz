@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import ClientsContainer from '@/containers/clientsHluz/ClientsContainer.vue';
 import ClientHluz from '@/components/ClientHluz.vue';
 import SearchInput from '@/components/SearchInput.vue';
